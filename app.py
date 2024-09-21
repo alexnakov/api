@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_restful import Api, Resource
 from utils import find_value_in_dict
-from api_fetcher import geocode, find_closest_5_airports, get_token
+from near_airports import geocode, find_closest_5_airports, get_token
 import requests
 import pprint
 
@@ -23,7 +23,7 @@ class ClosestAirportList(Resource):
         five_closest_airports = find_closest_5_airports(lat, lng, token)
         return five_closest_airports
 
-api.add_resource(ClosestAirportList, '/<string:human_address>')
+api.add_resource(ClosestAirportList, '/near_airports/<string:human_address>')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
